@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Security.Cryptography.X509Certificates;
 
@@ -7,6 +8,8 @@ namespace proj2
 {
     class Program
     {
+        public static List<int> numbers = new List<int> { };
+        public static List<char> sign = new List<char> { };
         static void Main()
         {
             bool active = true;
@@ -23,16 +26,15 @@ namespace proj2
                     default:
                         //Console.WriteLine(ReadExample(example));
                         ReadExample(example);
+                        Calculator(numbers, sign);
                         break;
                 }
             }
         }
-        static public int ReadExample(string Example)
+        static public void ReadExample(string Example)
         {
             string temp = "";
             int numberTemp = 0;
-            List<int> numbers = new List<int> { };
-            List<char> sign = new List<char> { };
             foreach (char var in Example.ToCharArray())
             {
                 switch (var)
@@ -89,12 +91,11 @@ namespace proj2
                                 break;
                             default:
                                 Console.Error.WriteLine("Wrong character detected");
-                                return 0;
+                                return;
                         }
                         break;
                 }
             }
-            return Calculator(numbers, sign);
         }
         static int Calculator(List<int> numbers, List<char> signs)
         {
@@ -108,6 +109,11 @@ namespace proj2
                 Console.WriteLine(s);
             }
             return result;
+        }
+        static void ClearLists(List<int> numbers, List<char> signs)
+        {
+            numbers.Clear();
+            signs.Clear();
         }
     }
 }
